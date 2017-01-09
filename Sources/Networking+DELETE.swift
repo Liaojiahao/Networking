@@ -2,6 +2,15 @@ import Foundation
 
 public extension Networking {
 
+    @discardableResult
+    public func DELETEWithBody(_ path: String, parameterType: ParameterType = .json, parameters: Any? = nil, completion: @escaping (_ json: Any?, _ error: NSError?) -> Void) -> String {
+        let requestID = self.request(.DELETE, path: path, parameterType: parameterType, parameters: parameters, parts: nil, responseType: .json) { json, headers, error in
+            completion(json, error)
+        }
+        
+        return requestID
+    }
+    
     /**
      DELETE request to the specified path, using the provided parameters.
      - parameter path: The path for the DELETE request.
